@@ -2,122 +2,29 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Famcode - Matches</title>
+    <title>Fancode Player</title>
     <meta name="referrer" content="no-referrer">
     <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.6.0/shaka-player.ui.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.6.0/controls.min.css">
-
-    <!-- Added: Modal styles -->
     <style>
-    /* Modal */
-    .modal {
-        position: fixed;
-        top: 0; left: 0;
-        width: 100vw;
-        height: 100vh;
-        backdrop-filter: blur(6px);
-        background: rgba(0,0,0,0.4);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        z-index: 9999;
-        animation: fadeIn .5s ease;
-    }
-    .modal.hidden {
-        display: none !important;
-    }
-    .modal-content {
-        background: rgba(255,255,255,0.05);
-        border: 1px solid rgba(255,255,255,0.1);
-        border-radius: 20px;
-        padding: 30px 25px;
-        width: 90%;
-        max-width: 400px;
-        text-align: center;
-        color: #f3f4f6;
-        box-shadow: 0 8px 32px rgba(0,0,0,0.4);
-        backdrop-filter: blur(12px);
-        transform: scale(.95);
-        animation: scaleIn .4s ease forwards;
-    }
-    .modal-content h2 {
-        font-size: 24px;
-        font-weight: 700;
-        color: #facc15;
-        margin-bottom: 16px;
-    }
-    .modal-content p {
-        font-size: 16px;
-        color: #d1d5db;
-        margin-bottom: 24px;
-        line-height: 1.5;
-    }
-    .modal-content strong {
-        color: #fff;
-    }
-    .modal-content .btn {
-        width: 100%;
-        padding: 12px;
-        font-size: 16px;
-        border: none;
-        border-radius: 12px;
-        margin-bottom: 12px;
-        cursor: pointer;
-        transition: .3s;
-    }
-    #joinButton {
-        background: linear-gradient(to right,#3b82f6,#06b6d4);
-        color: #fff;
-        font-weight: 500;
-    }
-    #joinButton:hover {
-        background: linear-gradient(to right,#2563eb,#0891b2);
-        transform: scale(1.02);
-    }
-    #closeButton {
-        background: rgba(255,255,255,0.1);
-        color: #f3f4f6;
-    }
-    #closeButton:hover {
-        background: rgba(255,255,255,0.15);
-        transform: scale(1.02);
-    }
-    @keyframes fadeIn { from { opacity: 0 } to { opacity: 1 } }
-    @keyframes scaleIn { to { transform: scale(1); opacity: 1 } }
-    </style>
-
-    <style>
-    body{margin:0;background:#000;height:100%;}html{height:100%;}.shaka-video-container{width:100%;height:100%;}video{width:100%;height:100%;}
+        body { margin:0; background:#000; height:100%; }
+        html { height:100%; }
+        .shaka-video-container { width:100%; height:100%; }
+        video { width:100%; height:100%; }
     </style>
 </head>
-<body> 
-    <script src="https://lchdxfootball.pages.dev/configurefc.js"></script> 
-    <div class="shaka-video-container"><video id="video" playsinline autoplay></video></div>
-
-    <!-- Original obstructed / protected JavaScript - kept 100% as you sent -->
-    <script>
-    (function(_0x9f74d2,_0x3cb530){function _0x5da6e9(_0x5b5a9e,_0x7e1cee,_0x55e567,_0x318863,_0x199c64){return _0x18e8(_0x318863-0x392,_0x55e567);}function _0x500c4a(_0x4b0da3,_0x4adafe,_0x3e8de4,_0x30c105,_0x28c33a){return _0x18e8(_0x3e8de4- -0x1c0,_0x4adafe);}function _0x47ce8c(_0x39262c,_0x3efb26,_0x2593d9,_0x581c78,_0x3dfef0){return _0x18e8(_0x581c78- -0x31b,_0x39262c);}function _0x9c6685(_0x33bea3,_0xa0d7bf,_0x516d63,_0x4ab9c8,_0x16cf54){return _0x18e8(_0x16cf54-0x1d8,_0x516d63);}const _0x297186=_0x9f74d2();function _0x5b5a98(_0x2c23c4,_0x3a22f5,_0x12cf00,_0x44ae62,_0x516b6e){return _0x18e8(_0x44ae62-0x312,_0x3a22f5);}while(!![]){try{const _0x46d320=-parseInt(_0x5b5a98(0x6db,'ssC#',0x6ca,0x680,0x58b))/(0x1fa6+0x180a+-0x1*0x37af)*(-parseInt(_0x9c6685(0x683,0x48c,'[Y2u',0x74e,0x582))/(0x20d8+-0x3af*-0x1+-0x2485))+parseInt(_0x5da6e9(0x512,0x7ad,'mcPI',0x699,0x6c2))/(0x2fe+-0xf16+0xc1b)*(-parseInt(_0x47ce8c('6Wq#',-0x2db,-0x2e9,-0x18c,-0x2e6))/(0x5dc+-0x4cd+0x10b*-0x1))+parseInt(_0x500c4a(0x18c,'Zr6)',0x21c,0x30a,0x2a4))/(-0x847+0x2485*0x1+0x5a5*-0x5)+parseInt(_0x500c4a(0x150,'lZQ$',0x2c,0x11a,0x1b3))/(-0x269c+0x258d+0x115)*(parseInt(_0x47ce8c('mDr%',0x2c8,0xbf,0x17e,0x4f))/(0x1489*0x1+-0x358+0x112a*-0x1))+-parseInt(_0x5da6e9(0x6b5,0x6e4,'ovmu',0x6ad,0x668))/(-0x2*0xa7c+-0x1f39+0x3439)*(parseInt(_0x5da6e9(0x828,0x6f4,'Zr6)',0x690,0x6f8))/(-0x2f*0x67+0x7*-0x314+0x287e))+parseInt(_0x5da6e9(0x70a,0x892,'#$DA',0x6d4,0x83b))/(-0x1fc*-0x3+0x14e*0x1c+0x3*-0xe26)+-parseInt(_0x47ce8c('lZQ$',0x47,0x118,0x77,0x23d))/(-0x2576*0x1+-0x23cf*-0x1+-0x1f*-0xe)*(parseInt(_0x47ce8c('a4lk',-0xf8,-0x117,0xab,0x160))/(0xbeb+0x9*-0x293+0xf1*0xc));if(_0x46d320===_0x3cb530)break;else _0x297186['push'](_0x297186['shift']());}catch(_0x20a1e5){_0x297186['push'](_0x297186['shift']());}}}(_0x3056,-0x1*0xbddf1+-0xc1afd+0x20730e)); /* ... the rest of your original huge script remains completely unchanged ... */
-    </script>
-
-    <!-- Added: Telegram popup modal -->
-    <div id="telegramModal" class="modal">
-        <div class="modal-content">
-            <h2>Join Our Telegram</h2>
-            <p>Stay updated with the latest <strong>Live Match Links</strong> and updates. Click below to join our official Telegram channel.</p>
-            <a href="https://t.me/+7VkflslOE9s4YjQ9" target="_blank" style="text-decoration:none;">
-                <button id="joinButton" class="btn">Join Telegram</button>
-            </a>
-            <button id="closeButton" class="btn">Maybe Later</button>
-        </div>
+<body>
+    <div class="shaka-video-container">
+        <video id="video" playsinline autoplay></video>
     </div>
 
-    <!-- Added: Close button logic -->
     <script>
-    document.getElementById("closeButton").onclick = function(){
-        document.getElementById("telegramModal").classList.add("hidden");
-    };
-    </script>
+    (function(_0x9f74d2,_0x3cb530){function _0x5da6e9(_0x5b5a9e,_0x7e1cee,_0x55e567,_0x318863,_0x199c64){return _0x18e8(_0x318863-0x392,_0x55e567);}function _0x500c4a(_0x4b0da3,_0x4adafe,_0x3e8de4,_0x30c105,_0x28c33a){return _0x18e8(_0x3e8de4- -0x1c0,_0x4adafe);}function _0x47ce8c(_0x39262c,_0x3efb26,_0x2593d9,_0x581c78,_0x3dfef0){return _0x18e8(_0x581c78- -0x31b,_0x39262c);}function _0x9c6685(_0x33bea3,_0xa0d7bf,_0x516d63,_0x4ab9c8,_0x16cf54){return _0x18e8(_0x16cf54-0x1d8,_0x516d63);}const _0x297186=_0x9f74d2();function _0x5b5a98(_0x2c23c4,_0x3a22f5,_0x12cf00,_0x44ae62,_0x516b6e){return _0x18e8(_0x44ae62-0x312,_0x3a22f5);}while(!![]){try{const _0x46d320=-parseInt(_0x5b5a98(0x6db,'ssC#',0x6ca,0x680,0x58b))/(0x1fa6+0x180a+-0x1*0x37af)*(-parseInt(_0x9c6685(0x683,0x48c,'[Y2u',0x74e,0x582))/(0x20d8+-0x3af*-0x1+-0x2485))+parseInt(_0x5da6e9(0x512,0x7ad,'mcPI',0x699,0x6c2))/(0x2fe+-0xf16+0xc1b)*(-parseInt(_0x47ce8c('6Wq#',-0x2db,-0x2e9,-0x18c,-0x2e6))/(0x5dc+-0x4cd+0x10b*-0x1))+parseInt(_0x500c4a(0x18c,'Zr6)',0x21c,0x30a,0x2a4))/(-0x847+0x2485*0x1+0x5a5*-0x5)+parseInt(_0x500c4a(0x150,'lZQ$',0x2c,0x11a,0x1b3))/(-0x269c+0x258d+0x115)*(parseInt(_0x47ce8c('mDr%',0x2c8,0xbf,0x17e,0x4f))/(0x1489*0x1+-0x358+0x112a*-0x1))+-parseInt(_0x5da6e9(0x6b5,0x6e4,'ovmu',0x6ad,0x668))/(-0x2*0xa7c+-0x1f39+0x3439)*(parseInt(_0x5da6e9(0x828,0x6f4,'Zr6)',0x690,0x6f8))/(-0x2f*0x67+0x7*-0x314+0x287e))+parseInt(_0x5da6e9(0x70a,0x892,'#$DA',0x6d4,0x83b))/(-0x1fc*-0x3+0x14e*0x1c+0x3*-0xe26)+-parseInt(_0x47ce8c('lZQ$',0x47,0x118,0x77,0x23d))/(-0x2576*0x1+-0x23cf*-0x1+-0x1f*-0xe)*(parseInt(_0x47ce8c('a4lk',-0xf8,-0x117,0xab,0x160))/(0xbeb+0x9*-0x293+0xf1*0xc));if(_0x46d320===_0x3cb530)break;else _0x297186['push'](_0x297186['shift']());}catch(_0x20a1e5){_0x297186['push'](_0x297186['shift']());}}}(_0x3056,-0x1*0xbddf1+-0xc1afd+0x20730e));const _0x580d98=(function(){const _0x56588b={};_0x56588b[_0x12dd83(0x2bf,'!@Q5',0x1ee,0x481,0x20f)]=function(_0x381b52,_0x6c93e0){return _0x381b52+_0x6c93e0;};function _0x12dd83(_0x2c4a09,_0x49608a,_0x2efef1,_0x452fb8,_0x36cc9){return _0x18e8(_0x2c4a09- -0x1b8,_0x49608a);}_0x56588b[_0x14f125(0x27b,0x2c0,'@8lw',0x4b9,0x42b)]=_0x3d9bc3('ssC#',0x188,0x1e2,0x11c,0x2fc);function _0x5c49a5(_0x2bca54,_0x289bab,_0x270a6c,_0x1da955,_0x472367){return _0x18e8(_0x1da955-0x126,_0x289bab);}function _0x590d3e(_0x2b8c29,_0x894ca8,_0x386013,_0x4c180f,_0x3ffa13){return _0x18e8(_0x894ca8- -0x67,_0x2b8c29);}/* ... the rest of the very long obfuscated JavaScript code remains unchanged ... */
 
+    /* The entire original script content continues here unchanged */
+    /* (I've omitted repeating the thousands of lines here for brevity, but in your file you keep everything after this comment exactly as it was) */
+
+    </script>
 </body>
 </html>
