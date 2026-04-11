@@ -4,31 +4,39 @@
     <meta charset="UTF-8">
     <title>@Cricinsider365</title>
     <meta name="referrer" content="no-referrer">
-    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-
+    <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.6.0/shaka-player.ui.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.6.0/controls.min.css">
 
-    <style>
+    <style type="text/css">
         body {
+            position: absolute;
             margin: 0;
             padding: 0;
-            background-color: #000;
+            background-color: #000000;
             color: #fff;
             font-family: Arial, sans-serif;
             display: flex;
             justify-content: center;
             align-items: flex-start;
-            height: 100vh;
-            width: 100vw;
-            overflow: hidden;
+            height: 100%;
+            width: 100%;
         }
         .video-container {
             position: absolute;
             width: 100%;
             height: 100%;
+            aspect-ratio: 16/9;
             background-color: #000;
+            border-radius: 1px;
             overflow: hidden;
+            box-shadow: 0 4px 2px rgba(0,0,0,0.5);
+        }
+        .shaka-video-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
         }
         video {
             width: 100%;
@@ -39,144 +47,117 @@
             width: 60px;
             height: 40px;
             position: absolute;
-            right: 10px;
+            right: 5px;
             top: 10px;
-            z-index: 1000;
-            opacity: 0.85;
         }
 
-        /* YouTube-like Theme */
-        .youtube-theme .shaka-seek-bar { background: rgba(255,255,255,0.2) !important; }
-        .youtube-theme .shaka-buffered-range { background: rgba(255,255,255,0.4) !important; }
+        /* YouTube Theme CSS */
+        @font-face {
+            font-family: 'Roboto';
+            font-style: normal;
+            font-weight: 400;
+            font-display: swap;
+            src: ur[](https://fonts.gstatic.com/s/roboto/v27/KFOmCnqEu92Fr1Me5Q.ttf) format('truetype');
+        }
+        @font-face {
+            font-family: 'Roboto';
+            font-style: normal;
+            font-weight: 500;
+            font-display: swap;
+            src: ur[](https://fonts.gstatic.com/s/roboto/v27/KFOlCnqEu92Fr1MmEU9vAw.ttf) format('truetype');
+        }
+
+        .youtube-theme { font-family: 'Roboto', sans-serif; }
+        .youtube-theme .shaka-bottom-controls { width: 100%; padding: 0; padding-bottom: 0; z-index: 1; }
+        .youtube-theme .shaka-bottom-controls { display: flex; flex-direction: column; }
+        .youtube-theme .shaka-ad-controls { order: 1; }
+        .youtube-theme .shaka-controls-button-panel { order: 2; height: 60px; padding: 0 10px; }
+        .youtube-theme .shaka-range-container { margin: 4px 10px; }
+        .youtube-theme .shaka-small-play-button { order: -3; }
+        .youtube-theme .shaka-mute-button { order: -2; }
+        .youtube-theme .shaka-controls-button-panel > * { margin: 0; padding: 3px 8px; color: #EEE; height: 60px; }
+        .youtube-theme .shaka-controls-button-panel .shaka-volume-bar-container { opacity: 0; width: 0; transition: width 0.2s; }
+        .youtube-theme .shaka-controls-button-panel .shaka-volume-bar-container:hover { width: 50px; opacity: 1; }
+        .youtube-theme .shaka-seek-bar-container { height: 3px; }
+        .youtube-theme .shaka-seek-bar-container:hover { height: 5px; }
+        .youtube-theme .shaka-seek-bar { background: rgba(255,255,255,.2) !important; }
+        .youtube-theme .shaka-buffered-range { background: rgba(255,255,255,.4) !important; }
         .youtube-theme .shaka-played-range { background: rgb(255,0,0) !important; }
     </style>
 </head>
+
 <body>
-
-<div class="video-container">
-    <div class="shaka-video-container" data-shaka-player>
-        <video id="video" autoplay muted playsinline preload="auto"></video>
-        <img id="myLogo" src="https://i.postimg.cc/fRSw4ZRD/IMG-20250925-223757.jpg">
+    <div class="video-container">
+        <div class="shaka-video-container" data-shaka-player>
+            <video id="video" autoplay muted playsinline preload="auto"></video>
+            <img id="myLogo" src="https://i.postimg.cc/fRSw4ZRD/IMG-20250925-223757.jpg">
+        </div>
     </div>
-</div>
 
-<script>
-// ====================== MAIN PLAYER SCRIPT ======================
+    <script>
+        const queryParams = new URLSearchParams(window.location.search);
+        const url = queryParams.get('streamUrl');
 
-const queryParams = new URLSearchParams(window.location.search);
-const streamUrl = queryParams.get("streamUrl");
-
-const channelstreamInfo = {
-    streamUrl: streamUrl,
-    authBearer: '',
-    streamPoster: "https://raw.githubusercontent.com/abusaed/Tv-Channels-Logo/main/heads/main/rounded/1745008895589.png"
-};
-
-let player;
-const video = document.getElementById("video");
-
-async function initializePlayer() {
-    try {
-        player = new shaka.Player();
-        await player.attach(video);
-
-        // UI Configuration
-        const container = document.querySelector('.shaka-video-container');
-        const ui = new shaka.ui.Overlay(player, container, video);
-
-        const config = {
-            seekBarColors: {
-                base: 'rgba(255,255,255,.2)',
-                buffered: 'rgba(255,255,255,.4)',
-                played: 'rgb(255,0,0)'
-            },
-            controlPanelElements: [
-                'spacer',
-                'mute',
-                'volume',
-                'time_and_duration',
-                'fullscreen',
-                'overflow_menu',
-                'picture_in_picture'
-            ]
+        const channelstreamInfo = {
+            'streamUrl': url,
+            'streamPoster': ''
         };
-        ui.configure(config);
 
-        // Player settings
-        player.configure({
-            streaming: {
-                bufferingGoal: 10,
-                rebufferingGoal: 2,
-                bufferBehind: 30
-            }
-        });
+        let player;
+        const video = document.getElementById('video');
 
-        video.loop = false;
-        video.muted = false;
-        video.volume = 1;
-        video.playsInline = true;
-
-        console.log("Stream loading:", channelstreamInfo.streamUrl);
-
-        await player.load(channelstreamInfo.streamUrl);
-        console.log("Stream loaded successfully.");
-
-        // Autoplay handling
-        const tryPlay = async () => {
+        async function initializePlayer() {
             try {
-                await video.play();
-                console.log("Autoplay successful.");
-            } catch (e) {
-                console.log("Autoplay failed, trying with muted...");
-                video.muted = true;
-                try {
-                    await video.play();
-                    console.log("Autoplay successful with muted audio.");
-                } catch (err) {
-                    console.log("Autoplay failed completely.");
-                }
+                player = new shaka.Player();
+                await player.attach(video);
+
+                const container = document.querySelector('.shaka-video-container');
+                const ui = new shaka.ui.Overlay(player, container, video);
+
+                const config = {
+                    seekBarColors: {
+                        base: 'rgba(255,255,255,.2)',
+                        buffered: 'rgba(255,255,255,.4)',
+                        played: 'rgb(255,0,0)'
+                    },
+                    controlPanelElements: [
+                        'spacer',
+                        'mute',
+                        'volume',
+                        'time_and_duration',
+                        'fullscreen'
+                    ]
+                };
+                ui.configure(config);
+
+                player.configure({
+                    streaming: {
+                        bufferingGoal: 10,
+                        rebufferingGoal: 2,
+                        bufferBehind: 30
+                    }
+                });
+
+                video.loop = true;
+                video.muted = false;
+                video.volume = 1;
+
+                console.log('Loading stream:', channelstreamInfo.streamUrl);
+                await player.load(channelstreamInfo.streamUrl);
+                console.log('Stream loaded successfully.');
+
+            } catch (error) {
+                console.error('Error initializing player:', error);
+                video.src = channelstreamInfo.streamUrl;
+                video.play().catch(() => {});
             }
-        };
-
-        if (video.readyState >= 2) {
-            await tryPlay();
-        } else {
-            video.addEventListener('canplay', tryPlay, { once: true });
         }
 
-    } catch (error) {
-        console.error("Error initializing player:", error);
-
-        // Fallback
-        video.src = channelstreamInfo.streamUrl;
-        video.muted = false;
-        try {
-            await video.play();
-        } catch (e) {
-            video.muted = true;
-            await video.play();
-        }
-    }
-}
-
-// Initialize when page loads
-document.addEventListener("DOMContentLoaded", () => {
-    initializePlayer().catch(err => {
-        console.error("Failed to initialize player:", err);
-    });
-});
-</script>
-
-<script>
-// ====================== TELEGRAM POPUP ======================
-
-const telegramLink = "https://t.me/superkingsarmy";
-const channelName = "@SuperKingsArmy";
-
-if (confirm(`Join Our Telegram Channel ${channelName} for more streams and updates?`)) {
-    window.open(telegramLink, "_blank");
-}
-</script>
-
+        document.addEventListener('DOMContentLoaded', () => {
+            initializePlayer().catch(err => {
+                console.error('Failed to initialize player:', err);
+            });
+        });
+    </script>
 </body>
 </html>
